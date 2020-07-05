@@ -51,6 +51,6 @@ return ( <div className="directory-menu">
             ))}
         </div>
     )}
-}
+} 
 
 export default Directory;
