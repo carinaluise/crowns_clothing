@@ -15,8 +15,6 @@ const config = {
 
       export const createUserProfile = async (userAuth, additionalData ) => {
 
-        console.log(userAuth );
-
         if(!userAuth) return;
         
         const userRef = firestore.doc(`users/${userAuth.uid}`);
@@ -45,14 +43,6 @@ const config = {
       return userRef;
 
         }
-
-
-
-
-
-
-
-
 
 firebase.initializeApp(config);
 
