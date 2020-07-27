@@ -9,6 +9,7 @@ import './App.css';
 import {HomePage} from './pages/homepage/homepage';
 import ShopPage from './pages/shop/shop';
 import SignInAndSignUp from './pages/sign-in-and-sign-up/sign-in-and-sign-up';
+import CheckoutPage from './pages/checkout/checkout';
 import Header from './components/header/header.component';
 
 
@@ -49,6 +50,7 @@ class App extends React.Component {
         <Route exact path='/' component={HomePage}></Route>
         <Route path='/shop' component={ShopPage}></Route>
         <Route path='/sign-in' render={ () => this.props.currentUser ? (<Redirect to='/' />) : (<SignInAndSignUp />)}></Route>
+        <Route exact path='/checkout' component={CheckoutPage}></Route>
       </Switch>
     </div>
    );
