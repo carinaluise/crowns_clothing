@@ -3,8 +3,9 @@ import {Route} from 'react-router-dom';
 // import CollectionsOverview from '../../components/collections-overview/collections-overview.component';
 // import CollectionPage from '../collection/collection';
 import {connect} from 'react-redux';
-import {fetchCollectionsStartAsync} from '../../redux/shop/shop.actions';
+import {fetchCollectionsStart} from '../../redux/shop/shop.actions';
 // import withSpinner from '../../components/with-spinner/with-spinner.component';
+
 
 import CollectionPageContainer from '../collection/collection.container';
 import CollectionsOverviewContainer from '../../components/collections-overview/collection-overview.container'
@@ -19,8 +20,8 @@ componentDidMount(){
 
 // const {updateCollections} = this.props;
 
-const {fetchCollectionsStartAsync} = this.props;
-fetchCollectionsStartAsync();
+const {fetchCollectionsStart} = this.props;
+fetchCollectionsStart();
 
 }
 
@@ -51,7 +52,7 @@ render(){
 
 const mapDispatchToProps = dispatch => ({
 
-   fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync())
+   fetchCollectionsStart: () => dispatch(fetchCollectionsStart())
 
 });
     
