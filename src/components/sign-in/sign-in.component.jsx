@@ -30,16 +30,30 @@ const {emailSignInStart} = this.props;
 
 emailSignInStart(email, password);
 
-// try {
-//   await auth.signInWithEmailAndPassword(email, password);
+// this.setState = ({
+//           displayName: '',
+//           email: '',
+//           password: '',
+//           confirmPassword: ''
+//   });
 
-//   this.setState({
-//     email: '' , password: ''
-// })
 
-// } catch (error) {
-//   console.error(error)
-// }
+        // try {
+        //     const {user} = await auth.createUserWithEmailAndPassword(email, password);
+        
+        //     await createUserProfile(user, {displayName});
+
+        //     this.setState = ({
+        //         displayName: '',
+        //         email: '',
+        //         password: '',
+        //         confirmPassword: ''
+        //     });
+        // }
+
+        // catch (error) {
+        //     console.error(error);
+        // }
 
 }
 
