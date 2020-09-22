@@ -1,15 +1,14 @@
 
 import {all, call, put, takeLatest} from 'redux-saga/effects';
 import { auth, googleProvider, createUserProfile, getCurrentUser} from '../../firebase/firebase.utils' 
-import {signInSuccess, signInFailure} from './user.actions';
+import {signInSuccess, signInFailure, signOutSuccess, signOutFailure} from './user.actions';
 import { userActionTypes } from './user.types';
 
-export function* getSnapShotFromUserAuth(userAuth){
+export function* getSnapShotFromUserAuth(userAuth, additionalData){
     try {
     
-    const userRef = yield call (createUserProfile, userAuth)
+    const userRef = yield call (createUserProfile, userAuth, additionalData)
     const userSnapshot = yield userRef.get();
-
     yield put (signInSuccess({ id: userSnapshot.id, ...userSnapshot.data()}))
     } catch(error){
     yield put(signInFailure(error))
@@ -17,13 +16,12 @@ export function* getSnapShotFromUserAuth(userAuth){
     
 }
 
-
 export function* signInWithGoogle(){
 
     try {
 
         const {user} = yield auth.signInWithPopup(googleProvider);
-        getSnapShotFromUserAuth(user);
+        yield getSnapShotFromUserAuth(user);
        
 
     } catch (error) {
@@ -45,7 +43,7 @@ export function* signInWithEmail({payload: {email, password}}){ // GETS WHOLE AC
     try {
 
         const {user} = yield auth.signInWithEmailAndPassword(email , password)
-        getSnapShotFromUserAuth(user);
+        yield getSnapShotFromUserAuth(user);
 
     } catch(error) {
        yield put (signInFailure(error))
@@ -73,8 +71,21 @@ export function* isUserAuthenticated () {
     }
 }
 
+export function* onSignOutStart() {
+	yield takeLatest (userActionTypes.SIGN_OUT_START, signOut)
+}
+
+export function* signOut() {
+	try {
+        yield auth.signOut();
+        yield put(signOutSuccess())
+}   catch(error) {
+    yield put(signOutFailure(error))}
+}    
+
+
 
 export function* userSagas(){
-    yield all ([call(onGoogleSignInStart) , call(onEmailSignInStart), call(onCheckUserSession)])
+    yield all ([call(onGoogleSignInStart) , call(onEmailSignInStart), call(onCheckUserSession), call(onSignOutStart)])
 }
 
